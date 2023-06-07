@@ -42,31 +42,33 @@ function Nav() {
               Sign Out
             </button>
             <Link href="/profile">
-              <Image src="/assets/images/logo.svg" width={37} height={37} className="rounded-full" alt="profile" />
+              <Image src={session?.user.image} width={37} height={37} className="rounded-full" alt="profile" />
             </Link>
           </div>
         ) : (
           <>
-            {providers && Object.values(providers).map((provider) => {
+            {providers &&
+              Object.values(providers).map((provider) => (
               <button
                 type="button"
                 key={provider.name}
                 onClick={() => signIn(provider.id)}
                 className="black_btn"
               >
-                SignIn
+                Sign In
               </button>
-            })}
+            ))}
           </>
         )}
       </div>
+      
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
         {session?.user 
           ? (
             <div className="flex">
               <Image 
-                src="/assets/images/logo.svg"
+                src={session?.user.image}
                 width={37}
                 height={37}
                 className="rounded-full cursor-pointer"
@@ -106,7 +108,7 @@ function Nav() {
           )
          : (
           <>
-            {providers && Object.values(providers).map((provider) => {
+            {providers && Object.values(providers).map((provider) => (
               <button
                 type="button"
                 key={provider.name}
@@ -115,7 +117,7 @@ function Nav() {
               >
                 SignIn
               </button>
-            })}
+            ))}
           </>
          )
         }
