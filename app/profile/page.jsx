@@ -9,7 +9,7 @@ import Profile from "@components/Profile";
 function MyProfile() {
   const router = useRouter();
   const { data: session } = useSession();
-  const [post, setPosts] = useState([])
+  const [posts, setPosts] = useState([])
   
 
   useEffect(() => {
@@ -22,14 +22,33 @@ function MyProfile() {
     if(session?.user.id) fetchPosts();
   },[])
 
-  function handleEdit() {}
-  async function handleDelete() {}
+  function handleEdit(post) {
+    router.push(`/update-prompt?id=${post._id}`)
+  }
+
+  async function handleDelete(post) {
+    const hasConfirmed = confirm("Are you sure you wanr to delete this prompt?");
+
+    if(hasConfirmed) {
+      try {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
+          method: "DELETE"
+        })
+
+        const filteredPost = posts.filter(p => p._id !== post._id)
+        setPosts(filteredPost)
+      } catch (error) {
+        console.log(error)
+      }
+    
+    }
+  }
 
   return (
     <Profile 
       name="My"
       desc="Welcome to your persolinazed profile page"
-      data={post}
+      data={posts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
     />

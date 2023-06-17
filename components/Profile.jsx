@@ -3,9 +3,6 @@ import React from 'react'
 import PromptCard from "./PromptCard"
 
 function Profile({ name, desc, data, handleEdit, handleDelete }) {
-    console.log("From My Profile", data)
-
-
   return (
     <section className="w-full">
       <h1 className="head_text text-left">
